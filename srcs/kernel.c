@@ -14,14 +14,13 @@ void kernel_main(void)
 	init_gdt();  // Initialisation du GDT
 /* Initialize terminal interface */
 	terminal_initialize();
-	terminal_writestring("ok\n");
-	terminal_writestring("\n\n\n\n\n\n\n\n\n\n\n");
+	terminal_writestring("\n\n\n\n\n\n\n\n\n\n\n\n");
 	terminal_writestring("                               Hello, welcome!\n");
 	terminal_writestring("\n\n\n\n\n\n\n\n\n\n\n");
 
 	pic_init();  // Initialisation du PIC
 	idt_init();
-	terminal_writestring("kfs-1~ ");
+	terminal_writestring("kfs-2~ ");
 	while (1)
 		keyboard_handler();
 	return;

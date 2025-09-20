@@ -29,6 +29,7 @@ void terminal_writestring(const char* data)
 
 void terminal_putchar(char c) 
 {
+	handle_key(c);
 	if (c == '\n' || terminal_column >= VGA_WIDTH)
 		newline();
 	else if (c == '\b')

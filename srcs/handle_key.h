@@ -6,5 +6,7 @@
 
 void newline();
 void backspace();
+void handle_key(char c);
+void execute_command(char* cmd);
 
 #endif

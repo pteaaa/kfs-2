@@ -10,6 +10,28 @@
 #include "vga.h"
 #include "port.h"
 
+#define CMD_BUF_SIZE 128
+char cmd_buffer[CMD_BUF_SIZE];
+uint32_t cmd_index = 0;
+
+
+void execute_command(char* cmd) {
+    if (strcmp(cmd, "kfs-2~ printk") == 0) {
+		terminal_writestring(" ");
+        print_stack();
+    }
+}
+
+void handle_key(char c) {
+    if (c == '\n' || c == '\r') {
+        cmd_buffer[cmd_index] = '\0';
+        execute_command(cmd_buffer);
+        cmd_index = 0;  
+    } else if (cmd_index < CMD_BUF_SIZE - 1) {
+        cmd_buffer[cmd_index++] = c;
+    }
+}
+
 void newline() {
 	terminal_column = 0;
 	terminal_row++;

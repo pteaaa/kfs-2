@@ -62,7 +62,7 @@ void keyboard_handler(void) {
 		    return;
 	    prompt(scancode);
 	    if (scancode == 0x1C)
-		    terminal_writestring("kfs-1~ ");
+		    terminal_writestring("kfs-2~ ");
     }
 }
 

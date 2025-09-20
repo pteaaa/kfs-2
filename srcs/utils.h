@@ -9,5 +9,8 @@ void kprint(const char*);
 void kprint_int(int);
 void kprintf(const char* fmt, ...);
 void* memcpy(void* dest, const void* src, size_t n);
+void terminal_writehex(unsigned int value);
+void print_stack(void);
+int strcmp(const char *a, const char *b);
 
 #endif

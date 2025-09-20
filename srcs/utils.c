@@ -43,6 +43,40 @@ void kprint_int(int value) {
     }
 }
 
+void terminal_writehex(unsigned int value) {
+    static const char hex_chars[] = "0123456789ABCDEF";
+    char buffer[11]; 
+
+    buffer[0] = '0';
+    buffer[1] = 'x';
+
+    for (int i = 0; i < 8; i++) {
+        unsigned int shift = (7 - i) * 4;
+        buffer[2 + i] = hex_chars[(value >> shift) & 0xF];
+    }
+
+    buffer[10] = '\0';
+
+    terminal_writestring(buffer);
+}
+
+
+
+
+void print_stack() {
+    unsigned int *esp;
+    asm volatile("mov %%esp, %0" : "=r"(esp));
+
+    terminal_writestring("\n======== Stack dump ==========\n\n");
+    for (int i = 0; i < 16; i++) {
+        terminal_writehex((unsigned int)(esp + i));
+        terminal_writestring(": ");
+        terminal_writehex(esp[i]);
+        terminal_putchar('\n');
+    }
+    terminal_writestring("\nEnd of stack dump.\n");
+}
+
 void kprintf(const char* fmt, ...) {
     va_list args;
     va_start(args, fmt);
@@ -71,6 +105,13 @@ void kprintf(const char* fmt, ...) {
     }
 
     va_end(args);
+}
+int strcmp(const char *a, const char *b) {
+    while (*a && (*a == *b)) {
+        a++;
+        b++;
+    }
+    return (unsigned char)*a - (unsigned char)*b;
 }
 
 void* memcpy(void* dest, const void* src, size_t n) {
